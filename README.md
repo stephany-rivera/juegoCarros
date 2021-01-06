@@ -21,6 +21,27 @@ Solo aplique al reto si te siente capaz de hacerlo.
 
 ## Use Case/Problem ##
 
+Lo que se busca en este juego es crear unos carros y posicionarlo en una pista, puede existir tantos carros como pistas, cada pista deberá tener el mismo limite de distancia (kilómetros) para el recorrido del carro, los carros avanzan de forma aleatoria aumentado su distancia por medio de metros (los kilómetros de debe convertir a metros para que el avance sea en metros), un ejemplo es de una instantanea de un recorrido:
+
+  
+
+
+![Image 1][]
+
+Cada avance debe existir un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5 entonces debería ser 5\*100 = 500 metros de recorrido :
+
+  
+
+
+![Image 1][]
+
+  
+
+
+Al final debe existir un podio donde se clasifique primer, segundo y tercer ganador:
+
+![Image 1][]
+
 Dentro del repositorio se tiene código base donde podrá utilizarlo para completar el desarrollo.
 
   
@@ -30,3 +51,6 @@ Dentro del repositorio se tiene código base donde podrá utilizarlo para comple
 
 | Criteria | Percentage |
 | -------- | ---------- |
+
+
+[Image 1]: 
