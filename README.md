@@ -42,15 +42,26 @@ Al final debe existir un podio donde se clasifique primer, segundo y tercer gana
 
 ![Image 1][]
 
-Dentro del repositorio se tiene código base donde podrá utilizarlo para completar el desarrollo.
+## Funcionalidades: ##
+
+ *  Crear juego con jugadores, el juego debe tener los limites de kilómetros por cada pista (un jugador puede ser un conductor y un conductor debe tener un carro asociado y un carro debe estar asociado a un pista)
+ *  Iniciar el juego, con un identificado se debe iniciar el juego, se debe tener la lista de carros en donde se pueda iterar y avanzar según la posición de la pista, esto debe ser de forma aleatoria.
+ *  Se debe seleccionar primer, segundo y tercer lugar en la medida que los corros llegan a la meta.
+ *  Se debe persistir los resultados con los nombres de los conductores y agregar un contador de las veces que ha ganado.
 
   
 
 
+*Dentro del repositorio podrás encontrar un código base y el modelo de clases, solo se debe hacer guardar los resultados con respecto ganador.*
+
 ## Evaluation criteria ##
 
-| Criteria | Percentage |
-| -------- | ---------- |
+| Criteria                                                             | Percentage |
+| -------------------------------------------------------------------- | ---------- |
+| Aplica los principios de programación orientada a objetos            | 30.0 %     |
+| Realiza la persistencia de los resultados obtenidos de los ganadores | 31.0 %     |
+| Utiliza un ORM para realizar la persistencia de datos                | 9.0 %      |
+| Cumple con las funcionalidades descritas en el caso de uso           | 30.0 %     |
 
 
 [Image 1]: 
