@@ -26,21 +26,21 @@ Lo que se busca en este juego es crear unos carros y posicionarlo en una pista, 
   
 
 
-![image.png](./image.png)
+![image-4.png](./image-4.png)
 
 Cada avance debe existir un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5 entonces debería ser 5\*100 = 500 metros de recorrido :
 
   
 
 
-![image-1.png](./image-1.png)
+![image-6.png](./image-6.png)
 
   
 
 
 Al final debe existir un podio donde se clasifique primer, segundo y tercer ganador:
 
-![image-2.png](./image-2.png)
+![image-8.png](./image-8.png)
 
 ## Funcionalidades: ##
 
@@ -56,8 +56,7 @@ Al final debe existir un podio donde se clasifique primer, segundo y tercer gana
 
   
 
-
-![image-3.png](./image-3.png)
+![image-7.png](./image-7.png)
 
 ## Evaluation criteria ##
 
