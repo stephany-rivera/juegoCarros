@@ -52,7 +52,12 @@ Al final debe existir un podio donde se clasifique primer, segundo y tercer gana
   
 
 
-*Dentro del repositorio podrás encontrar un código base y el modelo de clases, solo se debe hacer guardar los resultados con respecto ganador.*
+## Diagrama de clases: ##
+
+  
+
+
+![Image 1][]
 
 ## Evaluation criteria ##
 
