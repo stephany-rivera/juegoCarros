@@ -26,21 +26,22 @@ Lo que se busca en este juego es crear unos carros y posicionarlo en una pista, 
   
 
 
-![Image 1][]
+![Image 1](./pista.png)
 
 Cada avance debe tirar un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5, entonces debería ser aplicar 5\*100 = 500 (metros de recorridos):
 
   
 
 
-![Image 1][]
+
+![Image 1](./dado.png)
 
   
 
 
 Al final debe existir un podio donde se clasifique **primer**, **segundo** y **tercer** ganador:
 
-![Image 1][]
+![Image 1](./podio.png)
 
 Se concluye el juego y se guarda los valores. Luego se puede repetir para otro juego.
 
@@ -62,7 +63,7 @@ Se concluye el juego y se guarda los valores. Luego se puede repetir para otro j
   
 
 
-![Image 1][]
+![Image 1](./diagram.png)
 
 ## Evaluation criteria ##
 
@@ -74,4 +75,3 @@ Se concluye el juego y se guarda los valores. Luego se puede repetir para otro j
 | Cumple con las funcionalidades descritas en el caso de uso           | 30.0 %     |
 
 
-[Image 1]: 
