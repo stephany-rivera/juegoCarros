@@ -28,7 +28,7 @@ Lo que se busca en este juego es crear unos carros y posicionarlo en una pista, 
 
 ![Image 1](./pista.png)
 
-Cada avance debe tirar un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5, entonces debería ser aplicar 5\*100 = 500 (metros de recorridos):
+Cada avance debe tirar un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5, entonces debería aplicar 5\*100 = 500 (metros de recorridos):
 
   
 
