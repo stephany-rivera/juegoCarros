@@ -21,32 +21,37 @@ Solo aplique al reto si te siente capaz de hacerlo.
 
 ## Use Case/Problem ##
 
-Lo que se busca en este juego es crear unos carros y posicionarlo en una pista, puede existir tantos carros como pistas, cada pista deberá tener el mismo limite de distancia (kilómetros) para el recorrido del carro, los carros avanzan de forma aleatoria aumentado su distancia por medio de metros (los kilómetros de debe convertir a metros para que el avance sea en metros), un ejemplo es de una instantanea de un recorrido:
+Lo que se busca en este juego es crear unos carros y posicionarlo en una pista, puede existir tantos carros como pistas, cada pista deberá tener el mismo limite de distancia (kilómetros) para el recorrido del carro, los carros avanzan de forma aleatoria aumentado su distancia de metros (los kilómetros que deben convertir a metros para que el avance sea en metros), un ejemplo para una instantanea del recorrido:
 
   
 
 
-![pista](./pista.png)
+![Image 1][]
 
-Cada avance debe existir un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5 entonces debería ser 5\*100 = 500 metros de recorrido :
-
-  
-
-
-![dado.png](./dado.png)
+Cada avance debe tirar un dado (de 1 a 6) que permita mover el auto y se debe multiplicar por 100, donde si se tira el dado y sacas 5, entonces debería ser aplicar 5\*100 = 500 (metros de recorridos):
 
   
 
 
-Al final debe existir un podio donde se clasifique primer, segundo y tercer ganador:
+![Image 1][]
 
-![podio.png](./podio.png)
+  
+
+
+Al final debe existir un podio donde se clasifique **primer**, **segundo** y **tercer** ganador:
+
+![Image 1][]
+
+Se concluye el juego y se guarda los valores. Luego se puede repetir para otro juego.
+
+  
+
 
 ## Funcionalidades: ##
 
  *  Crear juego con jugadores, el juego debe tener los limites de kilómetros por cada pista (un jugador puede ser un conductor y un conductor debe tener un carro asociado y un carro debe estar asociado a un pista)
  *  Iniciar el juego, con un identificado se debe iniciar el juego, se debe tener la lista de carros en donde se pueda iterar y avanzar según la posición de la pista, esto debe ser de forma aleatoria.
- *  Se debe seleccionar primer, segundo y tercer lugar en la medida que los corros llegan a la meta.
+ *  Se debe seleccionar primer, segundo y tercer lugar en la medida que los carros llegan a la meta (fin del recorrido), crear el objeto objeto podio.
  *  Se debe persistir los resultados con los nombres de los conductores y agregar un contador de las veces que ha ganado.
 
   
@@ -56,7 +61,8 @@ Al final debe existir un podio donde se clasifique primer, segundo y tercer gana
 
   
 
-![diagram.png](./diagram.png)
+
+![Image 1][]
 
 ## Evaluation criteria ##
 
@@ -68,3 +74,4 @@ Al final debe existir un podio donde se clasifique primer, segundo y tercer gana
 | Cumple con las funcionalidades descritas en el caso de uso           | 30.0 %     |
 
 
+[Image 1]: 
