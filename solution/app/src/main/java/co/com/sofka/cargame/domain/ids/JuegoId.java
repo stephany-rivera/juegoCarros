@@ -21,7 +21,7 @@ public class JuegoId {
     }
     
     
-    public String getValue() {
+    public String getId() {
         return id.toString();
     }
 
