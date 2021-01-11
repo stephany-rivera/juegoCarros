@@ -6,10 +6,21 @@
 
 package co.com.sofka.cargame.domain.ids;
 
+import java.util.UUID;
+
 /**
  * 
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
-public class CarroId {
+public class CarroId {    
+       private UUID id;
+
+    public CarroId(UUID id) {
+        this.id = id;
+    }
+        
+    public String getId() {
+        return id.toString();
+    }
 
 }

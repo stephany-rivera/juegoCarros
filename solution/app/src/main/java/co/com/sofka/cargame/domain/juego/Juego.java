@@ -6,6 +6,9 @@
 
 package co.com.sofka.cargame.domain.juego;
 
+import co.com.sofka.cargame.domain.carro.Carro;
+import co.com.sofka.cargame.domain.carro.Conductor;
+import co.com.sofka.cargame.domain.ids.CarroId;
 import co.com.sofka.cargame.domain.ids.JuegoId;
 import co.com.sofka.cargame.domain.ids.JugadorId;
 import co.com.sofka.cargame.domain.ids.Nombre;
@@ -15,9 +18,11 @@ import co.com.sofka.cargame.domain.juego.values.Props;
 import co.com.sofka.cargame.domain.juego.values.Values;
 
 import java.awt.Color;
-import java.awt.List;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.UUID;
+
 
 /**
  * 
@@ -28,7 +33,7 @@ public class Juego {
     public Juego() {
     }
     
-    protected Map<JugadorId, Jugador>jugadores;
+    protected Map<JugadorId, Jugador>jugadores=new HashMap<>();
     protected Pista pista;
     protected Boolean jugando;
     protected Podio podio;
@@ -37,10 +42,36 @@ public class Juego {
         return null;
         }
       
-      public void crearJugador(JugadorId jugadorId,Nombre nombre, Color color){
+      
+      // Crear jugador y la lista de jugadores con sus respectivos id
+      public void crearJugador(JugadorId jugadorId,Nombre nombre, Color color){          
           Jugador jugador= new Jugador(nombre, color, 0);        
+          jugadores.put(jugadorId, jugador);   
+          crearConductor(nombre);
+        
        }
       
+        // Elegir si se desea que el jugador sea un conductor y crear el conductor y asignarle un carro.
+        public void crearConductor(Nombre nombre){      
+           UUID id;
+          Carro carro=  new Carro();
+          Scanner in = new Scanner(System.in);
+          System.out.println("Desea que el jugador con nombre: "+nombre.getNombre()+" sea conductor ? "+"Y/N");
+          String consultaConductores=in.nextLine();
+          
+           if (consultaConductores.equals("Y") || consultaConductores.equals("y")){
+               Conductor conductor= new Conductor(nombre.getNombre());
+               id= UUID.randomUUID();   
+               CarroId carroId = new CarroId(id);
+               carro.asignarConductor (carroId,conductor);              
+          }
+        }
+        
+      
+        
+        
+        
+          
       public void asignarPrimerLugar(JugadorId jugadorId){
       
       }
@@ -60,7 +91,7 @@ public class Juego {
           
           public Map<JugadorId, Jugador>jugadores(){
           
-          return null;
+          return jugadores;
           
           }
           

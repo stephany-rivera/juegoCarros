@@ -9,7 +9,11 @@ package co.com.sofka.cargame.domain.carro;
 import co.com.sofka.cargame.domain.ids.CarrilId;
 import co.com.sofka.cargame.domain.ids.CarroId;
 import co.com.sofka.cargame.domain.ids.JuegoId;
+import co.com.sofka.cargame.domain.ids.JugadorId;
+import co.com.sofka.cargame.domain.juego.Jugador;
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -20,6 +24,11 @@ public class Carro {
     protected Integer distancia;
     protected Color color;
     protected JuegoId juegoId;
+    protected Map<CarroId, Conductor>jugadores=new HashMap<>();
+      
+     public Carro() {
+    }
+    
     
     public Carro from(CarroId carroId){        
         return null;    
@@ -27,9 +36,13 @@ public class Carro {
     }
       
     
-    public void asignarConductor (String Cedula){
+    public void asignarConductor (CarroId carroId, Conductor conductor){
+        
+        
+        
     
     }
+
     
     public void avanzarEnCarril(CarrilId carrilId){
     

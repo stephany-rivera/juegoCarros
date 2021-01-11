@@ -19,7 +19,7 @@ public class JugadorId {
         this.id = id;
     }
         
-    public String getValue() {
+    public String getId() {
         return id.toString();
     }
     
