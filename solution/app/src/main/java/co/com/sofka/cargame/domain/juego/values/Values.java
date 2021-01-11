@@ -10,7 +10,9 @@ package co.com.sofka.cargame.domain.juego.values;
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
 public interface Values {
+
     public Integer kilometros();
+
     public Integer numeroDeCarriles();
-    
+
 }

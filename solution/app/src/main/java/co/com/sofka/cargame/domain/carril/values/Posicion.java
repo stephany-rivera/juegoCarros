@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.sofka.cargame.domain.carril.values;
 
 /**
- * 
+ *
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
-public class Posicion  implements Props{
+public class Posicion implements Props {
+
     private Integer actual;
     private Integer meta;
 
@@ -32,12 +32,13 @@ public class Posicion  implements Props{
         this.actual = actual;
         this.meta = meta;
     }
-    
+
 }
 
- interface Props{
+interface Props {
 
-     public Integer actual();
-     public  Integer meta();
+    public Integer actual();
+
+    public Integer meta();
 
 }

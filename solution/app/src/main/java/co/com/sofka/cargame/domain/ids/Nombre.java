@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.sofka.cargame.domain.ids;
 
 /**
- * 
+ *
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
 public class Nombre {
-    
+
     private String nombre;
 
     public Nombre(String nombre) {
@@ -21,6 +20,5 @@ public class Nombre {
     public String getNombre() {
         return nombre;
     }
-    
 
 }

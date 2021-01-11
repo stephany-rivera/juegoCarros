@@ -11,12 +11,14 @@ import co.com.sofka.cargame.domain.juego.Jugador;
  *
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
-
 public interface Props {
-    
-public Jugador primerLugar();
-public Jugador segundoLugar();
-public Jugador tercerLugar();
-public Boolean estaLleno();
-    
+
+    public Jugador primerLugar();
+
+    public Jugador segundoLugar();
+
+    public Jugador tercerLugar();
+
+    public Boolean estaLleno();
+
 }
