@@ -86,15 +86,18 @@ public class Juego {
 
     public void asignarPrimerLugar(JugadorId jugadorId) {
         podio.asignarPrimerLugar(jugadores.get(jugadorId));
+        System.out.println("**********"+jugadores.get(jugadorId).nombre().getNombre()+": Primer Lugar"+"***********");
 
     }
 
     public void asignarSegundoLugar(JugadorId jugadorId) {
         podio.asignarSegundoLugar(jugadores.get(jugadorId));
+        System.out.println("**********"+jugadores.get(jugadorId).nombre().getNombre()+": Segundo Lugar"+"***********");
     }
 
     public void asignarTercerLugar(JugadorId jugadorId) {
         podio.asignarTercerLugar(jugadores.get(jugadorId));
+        System.out.println("**********"+jugadores.get(jugadorId).nombre().getNombre()+": Tercer Lugar"+"***********");
 
     }
 
@@ -147,14 +150,12 @@ public class Juego {
                             asignarSegundoLugar(jugadorID(carros.conductor().nombre()));
                         } else if (podio.tercerLugar() == null) {
                             asignarTercerLugar(jugadorID(carros.conductor().nombre()));
-                        } else if (podio.estaLleno()) {
-                            jugando = false;
-
-                        }
+                        } 
                     }
                 }
-                contador++;
+                contador++;               
             }
+            if (podio.estaLleno())  break;
         }
 
     }
@@ -197,6 +198,15 @@ public class Juego {
 
     public Values pista() {
         return null;
+    }
+    
+    public void mostrarPodio(){         
+         System.out.println("--------Podio--------");
+         System.out.println("Primer Lugar:  "+podio.primerLugar().nombre().getNombre());
+         System.out.println("Segundo Lugar:  "+podio.segundoLugar().nombre().getNombre());
+         System.out.println("Tercer Lugar:  "+podio.tercerLugar().nombre().getNombre());
+         System.out.println("----------------------");
+    
     }
 
 }
