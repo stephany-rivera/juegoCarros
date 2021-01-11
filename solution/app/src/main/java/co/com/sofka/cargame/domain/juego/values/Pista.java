@@ -14,18 +14,25 @@ import co.com.sofka.cargame.domain.juego.Jugador;
  */
 public class Pista implements Values {
     
+    public Pista(Integer kilometros, Integer numeroDeCarriles) {
+        this.kilometros = kilometros;
+        this.numeroDeCarriles = numeroDeCarriles;
+    }
+    
     private  Integer kilometros;
     private Integer numeroDeCarriles;            
 
     @Override
     public Integer kilometros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return kilometros;
     }
 
     @Override
     public Integer numeroDeCarriles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return numeroDeCarriles;
     }
+
+    
 
   
 }

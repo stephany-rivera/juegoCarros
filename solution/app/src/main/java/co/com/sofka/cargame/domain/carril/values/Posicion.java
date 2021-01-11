@@ -16,12 +16,21 @@ public class Posicion  implements Props{
 
     @Override
     public Integer actual() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return actual;
     }
 
     @Override
     public Integer meta() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return meta;
+    }
+
+    public void setActual(Integer actual) {
+        this.actual = actual;
+    }
+
+    public Posicion(Integer actual, Integer meta) {
+        this.actual = actual;
+        this.meta = meta;
     }
     
 }

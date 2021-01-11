@@ -16,41 +16,47 @@ public class Podio implements Props {
     private Jugador primerLugar;
     private Jugador segundoLugar;
     private Jugador tercerLugar;
+
+    public Podio() {  
+    }
     
-    public Podio asignarPrimerLugar(Jugador jugador){
-    
-        return null;
-    
+    public void asignarPrimerLugar(Jugador jugador){
+        primerLugar=jugador;
+        System.out.println("***"+jugador.nombre().getNombre()+": Primer lugar*****");
     }
    
-    public Podio asignarSegundoLugar(Jugador jugador){
-    
-        return null;
-    
+    public void asignarSegundoLugar(Jugador jugador){
+            segundoLugar=jugador;
+            System.out.println("***"+jugador.nombre().getNombre()+": Segundo lugar*****");
     }
     
-    public Podio asignarTercerLugar(Jugador jugador){
-        return null;
+    public void asignarTercerLugar(Jugador jugador){
+        tercerLugar=jugador;
+         System.out.println("***"+jugador.nombre().getNombre()+": Tercer lugar*****");
     }
 
     @Override
     public Jugador primerLugar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return primerLugar;
     }
 
     @Override
     public Jugador segundoLugar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return segundoLugar;
     }
 
     @Override
     public Jugador tercerLugar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return tercerLugar;
     }
 
     @Override
     public Boolean estaLleno() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Boolean lleno=false;
+       if(primerLugar!= null && segundoLugar!=null && tercerLugar !=null){
+       lleno=true;
+       }
+       return lleno;
     }
 
     

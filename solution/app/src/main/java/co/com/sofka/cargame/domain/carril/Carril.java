@@ -9,6 +9,7 @@ import co.com.sofka.cargame.domain.ids.CarroId;
 import co.com.sofka.cargame.domain.ids.JuegoId;
 import co.com.sofka.cargame.domain.carril.values.Posicion;
 import co.com.sofka.cargame.domain.ids.CarrilId;
+import java.util.Objects;
 
 /**
  * 
@@ -20,6 +21,14 @@ public class Carril {
     protected Posicion posicion;
     protected Integer metros;
     protected Boolean desplazamientoFinal;
+
+    public Carril(CarroId carroId, JuegoId juegoId, Posicion posicion, Integer metros, Boolean desplazamientoFinal) {
+        this.carroId = carroId;
+        this.juegoId = juegoId;
+        this.posicion = posicion;
+        this.metros = metros;
+        this.desplazamientoFinal = desplazamientoFinal;
+    }
     
     public Carril from(CarrilId carrilId){
     
@@ -32,35 +41,44 @@ public class Carril {
     }
     
     public void alcanzarLaMeta(){
+        if (posicionActual()>= posicionDeseada()){
+            desplazamientoFinal=true;        
+        }
     
     
     }
     
-    public void moverCarro(Integer cantidad){
-    
+    public void moverCarro(Posicion posicion,Integer cantidad){
+        this.posicion=posicion;
+        posicion.setActual(posicion.actual()+cantidad);
+        alcanzarLaMeta();
     }
     
     public Integer metros(){
     
-        return null;
+        return metros;
     
     }
     
-    public Integer posicionActual(){
+    public Posicion posicion(){
     
-        return null;
-    
-    }
-    
-    public Integer posicionDeseada(){
-    
-        return null;
+        return posicion;
     
     }
     
-    public Boolean desplazameitnoFinal(){
+     public Integer posicionActual(){
     
-        return null;
+        return posicion.actual();
+    
+    }
+     
+     public Integer posicionDeseada(){
+         return posicion.meta();
+     }
+       
+    public Boolean desplazamientoFinal(){
+    
+        return desplazamientoFinal;
     
     }
     

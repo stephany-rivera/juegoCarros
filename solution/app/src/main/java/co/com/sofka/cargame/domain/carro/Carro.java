@@ -24,10 +24,18 @@ public class Carro {
     protected Integer distancia;
     protected Color color;
     protected JuegoId juegoId;
-    protected Map<CarroId, Conductor>jugadores=new HashMap<>();
+    private final  Map<CarroId, Conductor>carros=new HashMap<>();
       
      public Carro() {
     }
+
+    public Carro(Conductor conductor,Integer distancia, Color color, JuegoId juegoId) {
+        this.conductor=conductor;
+        this.distancia = distancia;
+        this.color = color;
+        this.juegoId = juegoId;
+    }
+     
     
     
     public Carro from(CarroId carroId){        
@@ -36,11 +44,22 @@ public class Carro {
     }
       
     
-    public void asignarConductor (CarroId carroId, Conductor conductor){
-        
-        
-        
+    public void asignarConductor (CarroId carroId, Conductor conductor){     
+        carros.put(carroId, conductor);           
+       
+    }
     
+       public Map<CarroId, Conductor>carros(){          
+          return carros;
+          
+          }
+
+    public void setDistancia(Integer distancia) {
+        this.distancia = distancia;
+    }
+    
+    public Integer numeroCarros(){
+    return carros.size();
     }
 
     
@@ -51,19 +70,19 @@ public class Carro {
     
    public Conductor conductor(){
    
-        return null;
+        return conductor;
    
    }
    
    public Integer distancia(){
    
-        return null;
+        return distancia;
    
    }
    
-   public String color(){
+   public Color color(){
    
-        return null;
+        return color;
    
    }
    

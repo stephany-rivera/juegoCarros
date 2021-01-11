@@ -13,6 +13,9 @@ package co.com.sofka.cargame.domain.carro;
 public class Conductor {
     private String nombre;
     
+    
+        public Conductor() {
+    }
     public Conductor(String nombre) {
         this.nombre = nombre;
     }
@@ -23,10 +26,11 @@ public class Conductor {
     }
     
     public Integer lanzarDado(){
-        int dadoAleatorio= (int) Math.random()*6 + 1;    
+        int dadoAleatorio= (int) (Math.random() * 6 + 1);            
         return dadoAleatorio;
-    
     }
+
+
 
     
 
