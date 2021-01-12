@@ -17,6 +17,7 @@ import co.com.sofka.cargame.domain.juego.values.Pista;
 import co.com.sofka.cargame.domain.juego.values.Podio;
 import co.com.sofka.cargame.domain.juego.values.Props;
 import co.com.sofka.cargame.domain.juego.values.Values;
+import co.com.sofka.persistencia.PersistenceController;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class Juego {
     protected ArrayList<Pista> pistas = new ArrayList<>();
     protected ArrayList<Carro> carrosEnJuego = new ArrayList<>();
     protected ArrayList<Carril> carrilesEnJuego = new ArrayList<>();
+    protected ArrayList<GanadoresBD> ganadores = new ArrayList<>();
+
     private final Carro carro = new Carro();
 
     public Juego from(JuegoId juegoId) {
@@ -86,18 +89,18 @@ public class Juego {
 
     public void asignarPrimerLugar(JugadorId jugadorId) {
         podio.asignarPrimerLugar(jugadores.get(jugadorId));
-        System.out.println("**********"+jugadores.get(jugadorId).nombre().getNombre()+": Primer Lugar"+"***********");
+        System.out.println("**********" + jugadores.get(jugadorId).nombre().getNombre() + ": Primer Lugar" + "***********");
 
     }
 
     public void asignarSegundoLugar(JugadorId jugadorId) {
         podio.asignarSegundoLugar(jugadores.get(jugadorId));
-        System.out.println("**********"+jugadores.get(jugadorId).nombre().getNombre()+": Segundo Lugar"+"***********");
+        System.out.println("**********" + jugadores.get(jugadorId).nombre().getNombre() + ": Segundo Lugar" + "***********");
     }
 
     public void asignarTercerLugar(JugadorId jugadorId) {
         podio.asignarTercerLugar(jugadores.get(jugadorId));
-        System.out.println("**********"+jugadores.get(jugadorId).nombre().getNombre()+": Tercer Lugar"+"***********");
+        System.out.println("**********" + jugadores.get(jugadorId).nombre().getNombre() + ": Tercer Lugar" + "***********");
 
     }
 
@@ -119,6 +122,7 @@ public class Juego {
 
         int pistaElegida = in.nextInt();
 
+        // Crear lista de carros en juego
         carro.carros().forEach((key, value) -> {
             Carro carrosJuego = new Carro(value, 0, Color.yellow, juegoId);
             carrosEnJuego.add(carrosJuego);
@@ -134,15 +138,21 @@ public class Juego {
         jugando = true;
         Conductor conductor = new Conductor();
         System.out.println("----------Inicia la carrera--------");
+
+        //Mientras no hayan 3 ganadores el juego continua
         while (jugando) {
             int contador = 0;
             System.out.println("--------Avance----- " + "--------- Meta: " + carrilesEnJuego.get(contador).metros() + " metros");
             for (Carro carros : carrosEnJuego) {
+
+                //Si el carro no ha ganado sigue jugando
                 if (!yaGanoCarro(carros.conductor().nombre())) {
                     int mover = conductor.lanzarDado() * 100;
                     carros.setDistancia(carros.distancia() + mover);
                     carrilesEnJuego.get(contador).moverCarro(carrilesEnJuego.get(contador).posicion(), mover);
                     System.out.println(carros.conductor().nombre() + ":" + " mueve: " + mover + " Nueva posición: " + carros.distancia());
+
+                    //Si el jugador llego a la final, asignarle la posición y el podio
                     if (carrilesEnJuego.get(contador).desplazamientoFinal()) {
                         if (podio.primerLugar() == null) {
                             asignarPrimerLugar(jugadorID(carros.conductor().nombre()));
@@ -150,13 +160,16 @@ public class Juego {
                             asignarSegundoLugar(jugadorID(carros.conductor().nombre()));
                         } else if (podio.tercerLugar() == null) {
                             asignarTercerLugar(jugadorID(carros.conductor().nombre()));
-                        } 
+                        }
                     }
                 }
-                contador++;               
+                contador++;
             }
-            if (podio.estaLleno())  break;
+            if (podio.estaLleno()) {
+                break;
+            }
         }
+        guardarRegistroBD();
 
     }
 
@@ -172,6 +185,8 @@ public class Juego {
 
     }
 
+    
+    
     public JugadorId jugadorID(String nombre) {
         JugadorId lookId = null;
         for (JugadorId keys : jugadores.keySet()) {
@@ -182,6 +197,8 @@ public class Juego {
         return lookId;
     }
 
+    
+    //Retorna True  si el carro en la carrera ya ganó
     public Boolean yaGanoCarro(String nombre) {
         boolean yaGano = false;
         if (podio.tercerLugar() == jugadores.get(jugadorID(nombre))
@@ -192,21 +209,45 @@ public class Juego {
         return yaGano;
     }
 
-    public Props props() {
-        return null;
+    // Método para guardar el registro  en la base de datos
+    public void guardarRegistroBD() {
+        int id = 1;
+        for (Carro carros : carrosEnJuego) {
+            String nombreCondParticipantes = carros.conductor().nombre();
+            if (podio.primerLugar().nombre().getNombre().equals(carros.conductor().nombre())) {
+                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 1, 0, 0);
+                ganadores.add(conductoresG);
+            } else if (podio.segundoLugar().nombre().getNombre().equals(carros.conductor().nombre())) {
+                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 0, 1, 0);
+                ganadores.add(conductoresG);
+
+            } else if (podio.tercerLugar().nombre().getNombre().equals(carros.conductor().nombre())) {
+                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 0, 0, 1);
+                ganadores.add(conductoresG);
+            } else {
+                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 0, 0, 0);
+                ganadores.add(conductoresG);
+            }
+            id++;
+        }
+        
+        PersistenceController controller = new PersistenceController();
+        for (GanadoresBD g : ganadores) {
+            controller.crearRegistro(g);
+            //System.out.println("id:"+g.getId()+"Nombre: "+g.getNombre()+"pir "+ g.getVecesPrimero()+" seg"+ g.getVecesSegundo()+"trec"+g.getVecesTercero());
+
+        }
+
     }
 
-    public Values pista() {
-        return null;
-    }
-    
-    public void mostrarPodio(){         
-         System.out.println("--------Podio--------");
-         System.out.println("Primer Lugar:  "+podio.primerLugar().nombre().getNombre());
-         System.out.println("Segundo Lugar:  "+podio.segundoLugar().nombre().getNombre());
-         System.out.println("Tercer Lugar:  "+podio.tercerLugar().nombre().getNombre());
-         System.out.println("----------------------");
-    
+            //Método para mostrar los conductores que quedaron en el podio 
+    public void mostrarPodio() {
+        System.out.println("--------Podio--------");
+        System.out.println("Primer Lugar:  " + podio.primerLugar().nombre().getNombre());
+        System.out.println("Segundo Lugar:  " + podio.segundoLugar().nombre().getNombre());
+        System.out.println("Tercer Lugar:  " + podio.tercerLugar().nombre().getNombre());
+        System.out.println("----------------------");
+
     }
 
 }
