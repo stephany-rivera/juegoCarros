@@ -45,8 +45,7 @@ public class App {
         // Iniciar el Juego
         nuevoJuego.iniciarJuego();
         
-        //Podio
-        nuevoJuego.mostrarPodio();
+     
 
 
  

@@ -169,8 +169,10 @@ public class Juego {
                 break;
             }
         }
-        guardarRegistroBD();
 
+        mostrarPodio();
+        guardarRegistroBD();
+        repetirJuego();
     }
 
     public Map<JugadorId, Jugador> jugadores() {
@@ -185,8 +187,6 @@ public class Juego {
 
     }
 
-    
-    
     public JugadorId jugadorID(String nombre) {
         JugadorId lookId = null;
         for (JugadorId keys : jugadores.keySet()) {
@@ -197,7 +197,6 @@ public class Juego {
         return lookId;
     }
 
-    
     //Retorna True  si el carro en la carrera ya ganó
     public Boolean yaGanoCarro(String nombre) {
         boolean yaGano = false;
@@ -230,17 +229,33 @@ public class Juego {
             }
             id++;
         }
-        
-        PersistenceController controller = new PersistenceController();
+
+      //  PersistenceController controller = new PersistenceController();
         for (GanadoresBD g : ganadores) {
-            controller.crearRegistro(g);
+            //controller.crearRegistro(g);
             //System.out.println("id:"+g.getId()+"Nombre: "+g.getNombre()+"pir "+ g.getVecesPrimero()+" seg"+ g.getVecesSegundo()+"trec"+g.getVecesTercero());
 
         }
 
     }
 
-            //Método para mostrar los conductores que quedaron en el podio 
+    // Método para saber si repetir el juego y limpiar listas de juego anterior
+    public void repetirJuego() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Desea jugar otra carrera?  Y/N");
+        String jugarOtro = in.nextLine();
+        if (jugarOtro.equals("Y") || jugarOtro.equals("y")) {           
+            carrosEnJuego.clear();
+            carrilesEnJuego.clear();           
+            Podio podioNuevo= new Podio();
+            podio=podioNuevo;
+             iniciarJuego();
+            
+        }
+
+    }
+
+    //Método para mostrar los conductores que quedaron en el podio 
     public void mostrarPodio() {
         System.out.println("--------Podio--------");
         System.out.println("Primer Lugar:  " + podio.primerLugar().nombre().getNombre());
