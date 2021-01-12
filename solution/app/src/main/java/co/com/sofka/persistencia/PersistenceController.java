@@ -25,6 +25,15 @@ public class PersistenceController {
             Logger.getLogger(PersistenceController.class.getName()).log(Level.SEVERE, null, ex);
         }
     
+    }
+    
+    
+    public void modificarRegistro(GanadoresBD ganadores){
+        try {
+            ganadoresJPA.edit(ganadores);
+        } catch (Exception ex) {
+            Logger.getLogger(PersistenceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
     

@@ -45,6 +45,7 @@ public class Juego {
     protected ArrayList<GanadoresBD> ganadores = new ArrayList<>();
 
     private final Carro carro = new Carro();
+    private Boolean primeraPartida=true;
 
     public Juego from(JuegoId juegoId) {
         return null;
@@ -210,34 +211,60 @@ public class Juego {
 
     // Método para guardar el registro  en la base de datos
     public void guardarRegistroBD() {
-        int id = 1;
-        for (Carro carros : carrosEnJuego) {
+        int id = 1;        
+        int contador=0;
+        PersistenceController controller = new PersistenceController();            
+        for (Carro carros : carrosEnJuego) {           
+            int vecesPrimero=0;
+            int vecesSegundo=0;
+            int vecesTercero=0;
             String nombreCondParticipantes = carros.conductor().nombre();
-            if (podio.primerLugar().nombre().getNombre().equals(carros.conductor().nombre())) {
-                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 1, 0, 0);
-                ganadores.add(conductoresG);
-            } else if (podio.segundoLugar().nombre().getNombre().equals(carros.conductor().nombre())) {
-                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 0, 1, 0);
-                ganadores.add(conductoresG);
-
-            } else if (podio.tercerLugar().nombre().getNombre().equals(carros.conductor().nombre())) {
-                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 0, 0, 1);
-                ganadores.add(conductoresG);
-            } else {
-                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, 0, 0, 0);
-                ganadores.add(conductoresG);
+            if(!primeraPartida){
+           vecesPrimero= ganadores.get(contador).getVecesPrimero();
+           vecesSegundo= ganadores.get(contador).getVecesSegundo();
+           vecesTercero= ganadores.get(contador).getVecesTercero();
             }
+            if (podio.primerLugar().nombre().getNombre().equals(nombreCondParticipantes) ){                
+                vecesPrimero+=1;
+                
+            } else if (podio.segundoLugar().nombre().getNombre().equals(nombreCondParticipantes)) {
+                vecesSegundo+=1;
+
+            } else if (podio.tercerLugar().nombre().getNombre().equals(nombreCondParticipantes)) {
+                vecesTercero+=1;
+            }
+            
+            if(primeraPartida){
+           GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, vecesPrimero, vecesSegundo, vecesTercero);           
+           ganadores.add(conductoresG);
             id++;
+            }
+            else{
+           ganadores.get(contador).setVecesPrimero(vecesPrimero);
+           ganadores.get(contador).setVecesSegundo(vecesSegundo);
+           ganadores.get(contador).setVecesTercero(vecesTercero);
+           contador++;
+            }
+         
         }
-
-      //  PersistenceController controller = new PersistenceController();
-        for (GanadoresBD g : ganadores) {
-            //controller.crearRegistro(g);
+        
+        
+         for (GanadoresBD g : ganadores) {
+             if(primeraPartida){
+            controller.crearRegistro(g);
+             }
+             else{
+             controller.modificarRegistro(g);
+             }
             //System.out.println("id:"+g.getId()+"Nombre: "+g.getNombre()+"pir "+ g.getVecesPrimero()+" seg"+ g.getVecesSegundo()+"trec"+g.getVecesTercero());
-
+        }
+         primeraPartida=false;
         }
 
-    }
+    
+    
+    
+    
 
     // Método para saber si repetir el juego y limpiar listas de juego anterior
     public void repetirJuego() {
