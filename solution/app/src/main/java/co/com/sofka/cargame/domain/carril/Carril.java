@@ -8,8 +8,6 @@ package co.com.sofka.cargame.domain.carril;
 import co.com.sofka.cargame.domain.ids.CarroId;
 import co.com.sofka.cargame.domain.ids.JuegoId;
 import co.com.sofka.cargame.domain.carril.values.Posicion;
-import co.com.sofka.cargame.domain.ids.CarrilId;
-import java.util.Objects;
 
 /**
  *
@@ -29,16 +27,6 @@ public class Carril {
         this.posicion = posicion;
         this.metros = metros;
         this.desplazamientoFinal = desplazamientoFinal;
-    }
-
-    public Carril from(CarrilId carrilId) {
-
-        return null;
-
-    }
-
-    public void agregarCarro(CarroId carroId) {
-
     }
 
     public void alcanzarLaMeta() {
@@ -79,12 +67,6 @@ public class Carril {
     public Boolean desplazamientoFinal() {
 
         return desplazamientoFinal;
-
-    }
-
-    public String carroId() {
-
-        return null;
 
     }
 

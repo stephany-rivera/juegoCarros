@@ -3,11 +3,7 @@ package co.com.sofka;
 import co.com.sofka.cargame.domain.ids.JugadorId;
 import co.com.sofka.cargame.domain.ids.Nombre;
 import co.com.sofka.cargame.domain.juego.Juego;
-import co.com.sofka.cargame.domain.juego.values.Pista;
-import co.com.sofka.cargame.domain.juego.values.Podio;
 import java.awt.Color;
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -27,8 +23,10 @@ public class App {
         //Datos jugadores para iniciar el juego 
         System.out.println("Iniciando un nuevo juego ...");
 
-        Scanner in = new Scanner(System.in);
+        //Consulta  cuántos jugadores se quieren crear y se crean dichos jugadores con nombres "jugador"+n
+        Scanner in = new Scanner(System.in);        
         System.out.println("¿Cuántos jugadores desea crear?");
+         while(!in.hasNextInt()) in.next();         
         cantidadJugadores = in.nextInt();
 
         for (int i = 0; i < cantidadJugadores; i++) {
@@ -44,8 +42,7 @@ public class App {
 
         // Iniciar el Juego
         nuevoJuego.iniciarJuego();
-        
-     
+
 
 
  

@@ -5,8 +5,6 @@
  */
 package co.com.sofka.cargame.domain.juego.values;
 
-import co.com.sofka.cargame.domain.juego.Jugador;
-
 /**
  *
  * @author Stephany Rivera <anie.12106@gmail.com>

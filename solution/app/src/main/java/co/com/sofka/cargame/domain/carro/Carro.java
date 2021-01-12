@@ -5,11 +5,8 @@
  */
 package co.com.sofka.cargame.domain.carro;
 
-import co.com.sofka.cargame.domain.ids.CarrilId;
 import co.com.sofka.cargame.domain.ids.CarroId;
 import co.com.sofka.cargame.domain.ids.JuegoId;
-import co.com.sofka.cargame.domain.ids.JugadorId;
-import co.com.sofka.cargame.domain.juego.Jugador;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +33,6 @@ public class Carro {
         this.juegoId = juegoId;
     }
 
-    public Carro from(CarroId carroId) {
-        return null;
-
-    }
-
     public void asignarConductor(CarroId carroId, Conductor conductor) {
         carros.put(carroId, conductor);
 
@@ -57,10 +49,6 @@ public class Carro {
 
     public Integer numeroCarros() {
         return carros.size();
-    }
-
-    public void avanzarEnCarril(CarrilId carrilId) {
-
     }
 
     public Conductor conductor() {

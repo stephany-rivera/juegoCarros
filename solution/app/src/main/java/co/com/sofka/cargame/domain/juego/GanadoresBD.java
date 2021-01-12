@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.sofka.cargame.domain.juego;
 
 import java.io.Serializable;
@@ -11,19 +10,19 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * 
+ *
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
 @Entity
 public class GanadoresBD implements Serializable {
-    
+
     @Id
-    private int id;    
+    private int id;
     private String nombre;
     private int vecesPrimero;
     private int vecesSegundo;
     private int vecesTercero;
-    
+
     public GanadoresBD() {
     }
 
@@ -74,8 +73,5 @@ public class GanadoresBD implements Serializable {
     public void setVecesTercero(int vecesTercero) {
         this.vecesTercero = vecesTercero;
     }
-    
-    
-    
-}
 
+}

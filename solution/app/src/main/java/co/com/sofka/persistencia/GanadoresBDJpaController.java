@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.sofka.persistencia;
 
 import co.com.sofka.cargame.domain.juego.GanadoresBD;
@@ -20,7 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- * 
+ *
  * @author Stephany Rivera <anie.12106@gmail.com>
  */
 public class GanadoresBDJpaController implements Serializable {
@@ -29,10 +28,10 @@ public class GanadoresBDJpaController implements Serializable {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
-    
-    public GanadoresBDJpaController(){
-        emf=Persistence.createEntityManagerFactory("co.com.sofka1.0-PU");
-    
+
+    public GanadoresBDJpaController() {
+        emf = Persistence.createEntityManagerFactory("co.com.sofka1.0-PU");
+
     }
 
     public EntityManager getEntityManager() {

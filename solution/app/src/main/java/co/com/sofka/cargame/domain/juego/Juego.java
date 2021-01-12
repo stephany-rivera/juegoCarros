@@ -15,8 +15,6 @@ import co.com.sofka.cargame.domain.ids.JugadorId;
 import co.com.sofka.cargame.domain.ids.Nombre;
 import co.com.sofka.cargame.domain.juego.values.Pista;
 import co.com.sofka.cargame.domain.juego.values.Podio;
-import co.com.sofka.cargame.domain.juego.values.Props;
-import co.com.sofka.cargame.domain.juego.values.Values;
 import co.com.sofka.persistencia.PersistenceController;
 
 import java.awt.Color;
@@ -43,13 +41,10 @@ public class Juego {
     protected ArrayList<Carro> carrosEnJuego = new ArrayList<>();
     protected ArrayList<Carril> carrilesEnJuego = new ArrayList<>();
     protected ArrayList<GanadoresBD> ganadores = new ArrayList<>();
-
     private final Carro carro = new Carro();
     private Boolean primeraPartida=true;
 
-    public Juego from(JuegoId juegoId) {
-        return null;
-    }
+ 
 
     // Crear jugador y la lista de jugadores con sus respectivos id
     public void crearJugador(JugadorId jugadorId, Nombre nombre, Color color) {
@@ -60,11 +55,14 @@ public class Juego {
 
     // Elegir si se desea que el jugador sea un conductor y crear el conductor y asignarle un carro.
     public void crearConductor(Nombre nombre) {
-        UUID id;
+        UUID id;            
         Scanner in = new Scanner(System.in);
         System.out.println("Desea que el jugador con nombre: " + nombre.getNombre() + " sea conductor ? " + "Y/N");
-        String consultaConductores = in.nextLine();
-
+        while (!in.hasNext("[yYnN]")) {
+            System.out.println("Solo se reciben como respuesta Y/N ó y/n");
+            in.next();
+        }
+        String consultaConductores = in.next();
         if (consultaConductores.equals("Y") || consultaConductores.equals("y")) {
             Conductor conductor = new Conductor(nombre.getNombre());
             id = UUID.randomUUID();
@@ -73,10 +71,10 @@ public class Juego {
         }
     }
 
-    /*  Eligir pistas que se crean según cantidad de carros (pueden existir tantos carros como pistas)
+    /* 
+        Eligir pistas que se crean según cantidad de carros (pueden existir tantos carros como pistas)
         y dar kilometros  aleatorios a cada pista con limites de kilometros 100 y cada pista tiene la misma
-        cantidad de carriles que carros existentes para que todos los conductores puedan participar de la carrera.
-        
+        cantidad de carriles que carros existentes para que todos los conductores puedan participar de la carrera.        
      */
     public void crearPistas() {
         int kilometrosRandom;
@@ -120,7 +118,7 @@ public class Juego {
             System.out.println(counter + "." + " Kilometros: " + p.kilometros() + " Número de carriles:  " + p.numeroDeCarriles());
             counter++;
         }
-
+       while(!in.hasNextInt()) in.next();   
         int pistaElegida = in.nextInt();
 
         // Crear lista de carros en juego
@@ -128,7 +126,7 @@ public class Juego {
             Carro carrosJuego = new Carro(value, 0, Color.yellow, juegoId);
             carrosEnJuego.add(carrosJuego);
 
-            //añadir carros a los Carriles
+            //añadir carros a los Carriles para jugar
             int kilometrosToMetros = pistas.get(pistaElegida - 1).kilometros() * 1000;
             Posicion posicion = new Posicion(0, kilometrosToMetros);
             Carril carriles = new Carril(key, juegoId, posicion, kilometrosToMetros, false);
@@ -188,6 +186,7 @@ public class Juego {
 
     }
 
+       // Retorna el id del jugador dando el nombre del jugador
     public JugadorId jugadorID(String nombre) {
         JugadorId lookId = null;
         for (JugadorId keys : jugadores.keySet()) {
@@ -209,75 +208,71 @@ public class Juego {
         return yaGano;
     }
 
-    // Método para guardar el registro  en la base de datos
+    // Método para guardar el registro  en la base de datos 
+    // Si es la primera partida crea el registro en la base de datos  y si no es la primera solo hace modificaciones.
     public void guardarRegistroBD() {
-        int id = 1;        
-        int contador=0;
-        PersistenceController controller = new PersistenceController();            
-        for (Carro carros : carrosEnJuego) {           
-            int vecesPrimero=0;
-            int vecesSegundo=0;
-            int vecesTercero=0;
+        int id = 1;
+        int contador = 0;
+        PersistenceController controller = new PersistenceController();
+        for (Carro carros : carrosEnJuego) {
+            int vecesPrimero = 0;
+            int vecesSegundo = 0;
+            int vecesTercero = 0;
             String nombreCondParticipantes = carros.conductor().nombre();
-            if(!primeraPartida){
-           vecesPrimero= ganadores.get(contador).getVecesPrimero();
-           vecesSegundo= ganadores.get(contador).getVecesSegundo();
-           vecesTercero= ganadores.get(contador).getVecesTercero();
+            if (!primeraPartida) {
+                vecesPrimero = ganadores.get(contador).getVecesPrimero();
+                vecesSegundo = ganadores.get(contador).getVecesSegundo();
+                vecesTercero = ganadores.get(contador).getVecesTercero();
             }
-            if (podio.primerLugar().nombre().getNombre().equals(nombreCondParticipantes) ){                
-                vecesPrimero+=1;
-                
+            if (podio.primerLugar().nombre().getNombre().equals(nombreCondParticipantes)) {
+                vecesPrimero += 1;
+
             } else if (podio.segundoLugar().nombre().getNombre().equals(nombreCondParticipantes)) {
-                vecesSegundo+=1;
+                vecesSegundo += 1;
 
             } else if (podio.tercerLugar().nombre().getNombre().equals(nombreCondParticipantes)) {
-                vecesTercero+=1;
+                vecesTercero += 1;
             }
-            
-            if(primeraPartida){
-           GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, vecesPrimero, vecesSegundo, vecesTercero);           
-           ganadores.add(conductoresG);
-            id++;
+
+            if (primeraPartida) {
+                GanadoresBD conductoresG = new GanadoresBD(id, nombreCondParticipantes, vecesPrimero, vecesSegundo, vecesTercero);
+                ganadores.add(conductoresG);
+                id++;
+            } else {
+                ganadores.get(contador).setVecesPrimero(vecesPrimero);
+                ganadores.get(contador).setVecesSegundo(vecesSegundo);
+                ganadores.get(contador).setVecesTercero(vecesTercero);
+                contador++;
             }
-            else{
-           ganadores.get(contador).setVecesPrimero(vecesPrimero);
-           ganadores.get(contador).setVecesSegundo(vecesSegundo);
-           ganadores.get(contador).setVecesTercero(vecesTercero);
-           contador++;
-            }
-         
-        }
-        
-        
-         for (GanadoresBD g : ganadores) {
-             if(primeraPartida){
-            controller.crearRegistro(g);
-             }
-             else{
-             controller.modificarRegistro(g);
-             }
-            //System.out.println("id:"+g.getId()+"Nombre: "+g.getNombre()+"pir "+ g.getVecesPrimero()+" seg"+ g.getVecesSegundo()+"trec"+g.getVecesTercero());
-        }
-         primeraPartida=false;
+
         }
 
-    
-    
-    
-    
+        for (GanadoresBD g : ganadores) {
+            if (primeraPartida) {
+                controller.crearRegistro(g);
+            } else {
+                controller.modificarRegistro(g);
+            }
+        }
+        primeraPartida = false;
+    }
 
     // Método para saber si repetir el juego y limpiar listas de juego anterior
     public void repetirJuego() {
         Scanner in = new Scanner(System.in);
         System.out.println("Desea jugar otra carrera?  Y/N");
-        String jugarOtro = in.nextLine();
-        if (jugarOtro.equals("Y") || jugarOtro.equals("y")) {           
+        while (!in.hasNext("[yYnN]")) {
+            System.out.println("Solo se reciben como respuesta Y/N ó y/n");
+            in.next();
+        }
+        String jugarOtro = in.next();
+        if (jugarOtro.equals("Y") || jugarOtro.equals("y")) {
             carrosEnJuego.clear();
-            carrilesEnJuego.clear();           
-            Podio podioNuevo= new Podio();
-            podio=podioNuevo;
-             iniciarJuego();
-            
+            carrilesEnJuego.clear();
+            Podio podioNuevo = new Podio();
+            podio = podioNuevo;
+            iniciarJuego();
+
         }
 
     }
